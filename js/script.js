@@ -15,6 +15,15 @@ colors.disabled = true;
 const activities = document.getElementById('activities');
 let sum = 0;
 
+// ④
+const paymentMethods = document.getElementById('payment');
+const creditCard = document.getElementById('credit-card');
+const paypal = document.getElementById('paypal');
+const bitcoin= document.getElementById('bitcoin');
+
+
+
+
 
 // ①option達の親要素である、selectをidで取得して、changeで監視しchangeされたら、displayイベントを追加
 jobOptions.addEventListener('change', ()=>{
@@ -24,8 +33,6 @@ jobOptions.addEventListener('change', ()=>{
     otherJobRole.style.display = 'none';
   }
 });
-
-
 
 // カラーoptionをforeachで取り出して
 // それぞれのdata-themをifで判別
@@ -42,7 +49,7 @@ designs.addEventListener('change', (e)=>{
   }
 });
 
-
+// コース選択で合計金額が計算される
 activities.addEventListener('change', (e)=>{
   const checkedActivity = e.target;
   const isChecked = checkedActivity.checked;
@@ -54,4 +61,30 @@ activities.addEventListener('change', (e)=>{
     sum -= parseInt(price);
   }
   totalCost.innerHTML = `Total: $${sum}`;
+});
+
+
+// 支払い方法の選択で表示項目を変える
+paymentMethods.addEventListener('change', ()=>{
+  switch(paymentMethods.value){
+    case 'credit-card':
+      creditCard.style.display = 'block';
+      paypal.style.display = 'none';
+      bitcoin.style.display = 'none';
+      break;
+    case 'paypal':
+      creditCard.style.display = 'none';
+      paypal.style.display = 'block';
+      bitcoin.style.display = 'none';
+      break;
+    case 'bitcoin':
+      creditCard.style.display = 'none';
+      paypal.style.display = 'none';
+      bitcoin.style.display = 'block';
+      break;
+    default:
+      creditCard.style.display = 'block';
+      paypal.style.display = 'none';
+      bitcoin.style.display = 'none';
+  }
 });
