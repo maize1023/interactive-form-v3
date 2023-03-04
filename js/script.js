@@ -104,20 +104,53 @@ checkboxes.forEach((checkbox) => {
 
 
 
+
 const nameValidator = ()=>{
   const nameValue = nameElement.value;
   const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+  const nameLabel = document.querySelector('label[for="name"]');
+  if(!nameIsValid){
+    nameLabel.classList.add('not-valid');
+    nameLabel.classList.remove('valid');
+    nameLabel.lastElementChild.style.display = 'block';
+  }else{
+    nameLabel.classList.remove('not-valid');
+    nameLabel.classList.add('valid');
+    nameLabel.classList.hide('.hint');
+    nameLabel.lastElementChild.style.display = 'none';
+  }
   return nameIsValid;
 }
 
 const emailValidator = ()=>{
   const emailValue = email.value;
   const emailsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+  const emailLabel = document.querySelector('label[for="email"]');
+  if(!emailsValid){
+    emailLabel.classList.add('not-valid');
+    emailLabel.classList.remove('valid');
+    emailLabel.lastElementChild.style.display = 'block';
+  }else{
+    emailLabel.classList.remove('not-valid');
+    emailLabel.classList.add('valid');
+    emailLabel.classList.hide('.hint');
+    emailLabel.lastElementChild.style.display = 'none';
+  }
   return emailsValid;
 };
 
 const activitiesValidator = ()=>{
   const activitiesIsValid = sum > 0;
+  if(!activitiesIsValid){
+    activities.classList.add('not-valid');
+    activities.classList.remove('valid');
+    activities.lastElementChild.style.display = 'block';
+  }else{
+    activities.classList.remove('not-valid');
+    activities.classList.add('valid');
+    activities.classList.hide('.hint');
+    activities.lastElementChild.style.display = 'none';
+  }
   return activitiesIsValid;
 }
 
@@ -125,19 +158,52 @@ const creditCardValidator = ()=>{
   const cardNumValue = creditCardNum.value;
   const zipCodeValue = zipCode.value;
   const cvvValue = cvv.value;
-  if(paymentMethods.value === 'credit-card'){
-    const cardNumValid = /^\d{13,16}$/.test(cardNumValue);
-    return cardNumValid;
+  const cardNumValid = /^\d{13,16}$/.test(cardNumValue);
+  const zipCodeValid = /^\d{5}$/.test(zipCodeValue);
+  const cvvValid =  /^\d{3}$/.test(cvvValue);
+  const creditLabel = document.querySelector('label[for="cc-num"]');
+  const zipLabel = document.querySelector('label[for="zip"]');
+  const cvvLabel = document.querySelector('label[for="cvv"]');
+  let isValid = true;
+
+  if (paymentMethods.value === 'credit-card') {
+    if (!cardNumValid) {
+      creditLabel.classList.add('not-valid');
+      creditLabel.classList.remove('valid');
+      creditLabel.lastElementChild.style.display = 'block';
+      isValid = false;
+    } else {
+      creditLabel.classList.remove('not-valid');
+      creditLabel.classList.add('valid');
+      creditLabel.classList.hide('.hint');
+      creditLabel.lastElementChild.style.display = 'none';
+    }
+
+    if (!zipCodeValid) {
+      zipLabel.classList.add('not-valid');
+      zipLabel.classList.remove('valid');
+      zipLabel.lastElementChild.style.display = 'block';
+      isValid = false;
+    } else {
+      zipLabel.classList.remove('not-valid');
+       zipLabel.classList.add('valid');
+       zipLabel.lastElementChild.style.display = 'none';
+    }
+
+    if (!cvvValid) {
+      cvvLabel.classList.add('not-valid');
+      cvvLabel.classList.remove('valid');
+      cvvLabel.lastElementChild.style.display = 'block';
+      isValid = false;
+    } else {
+      cvvLabel.classList.remove('not-valid');
+      cvvLabel.classList.add('valid');
+      cvvLabel.lastElementChild.style.display = 'none';
+    }
   }
-  if(paymentMethods.value === 'credit-card'){
-    const zipCodeValid = /^\d{5}$/.test(zipCodeValue);
-    return zipCodeValid;
-  }
-  if(paymentMethods.value === 'credit-card'){
-    const cvvValid =  /^\d{3}$/.test(cvvValue);
-    return cvvValid;
-  }
-}
+
+  return isValid;
+};
 
 
 
