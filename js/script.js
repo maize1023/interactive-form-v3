@@ -1,35 +1,35 @@
-// デフォルトでフォーカスを当てる
+
+// Basic Info
 const nameInput = document.querySelector('#name');
 nameInput.focus();
-
-// ①otherが押されたら、other job roleを表示
+const nameElement = document.getElementById('name');
+const form = document.querySelector('form');
+const email = document.getElementById('email');
 const otherJobRole = document.getElementById('other-job-role');
 const jobOptions = document.getElementById('title');
 
-// ②
+// T-Shirt Info
 const designs = document.getElementById('design');
 const colors = document.getElementById('color');
 colors.disabled = true;
 
-// ③
+// Register for Activities
 const activities = document.getElementById('activities');
 let sum = 0;
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-// ④
+// Payment Info
 const paymentMethods = document.getElementById('payment');
 const creditCard = document.getElementById('credit-card');
 const paypal = document.getElementById('paypal');
 const bitcoin= document.getElementById('bitcoin');
-
-const form = document.querySelector('form');
-const nameElement = document.getElementById('name');
-const email = document.getElementById('email');
-
 const creditCardNum = document.getElementById('cc-num');
 const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 
-// ①option達の親要素である、selectをidで取得して、changeで監視しchangeされたら、displayイベントを追加
+
+
+// show/hide other job role
 jobOptions.addEventListener('change', ()=>{
   if(jobOptions.value === 'other'){
     otherJobRole.style.display = 'block';
@@ -38,8 +38,6 @@ jobOptions.addEventListener('change', ()=>{
   }
 });
 
-// カラーoptionをforeachで取り出して
-// それぞれのdata-themをifで判別
 designs.addEventListener('change', (e)=>{
   const selectedTee = e.target.value;
   colors.disabled = false;
@@ -53,7 +51,6 @@ designs.addEventListener('change', (e)=>{
   }
 });
 
-// コース選択で合計金額が計算される
 activities.addEventListener('change', (e)=>{
   const checkedActivity = e.target;
   const isChecked = checkedActivity.checked;
@@ -67,8 +64,6 @@ activities.addEventListener('change', (e)=>{
   totalCost.innerHTML = `Total: $${sum}`;
 });
 
-
-// 支払い方法の選択で表示項目を変える
 paymentMethods.addEventListener('change', ()=>{
   switch(paymentMethods.value){
     case 'credit-card':
@@ -93,13 +88,27 @@ paymentMethods.addEventListener('change', ()=>{
   }
 });
 
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener('focus', () => {
+    checkbox.parentNode.classList.add('focus');
+  });
+
+  checkbox.addEventListener('blur', () => {
+    const focusedLabel = document.querySelector('.focus');
+    if(focusedLabel){
+      focusedLabel.classList.remove('focus');
+    }
+  });
+});
+
+
+
 
 const nameValidator = ()=>{
   const nameValue = nameElement.value;
   const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
   return nameIsValid;
 }
-
 
 const emailValidator = ()=>{
   const emailValue = email.value;
@@ -129,6 +138,7 @@ const creditCardValidator = ()=>{
     return cvvValid;
   }
 }
+
 
 
 form.addEventListener('submit', (e)=>{
