@@ -21,9 +21,13 @@ const creditCard = document.getElementById('credit-card');
 const paypal = document.getElementById('paypal');
 const bitcoin= document.getElementById('bitcoin');
 
+const form = document.querySelector('form');
+const nameElement = document.getElementById('name');
+const email = document.getElementById('email');
 
-
-
+const creditCardNum = document.getElementById('cc-num');
+const zipCode = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
 
 // ①option達の親要素である、selectをidで取得して、changeで監視しchangeされたら、displayイベントを追加
 jobOptions.addEventListener('change', ()=>{
@@ -88,3 +92,50 @@ paymentMethods.addEventListener('change', ()=>{
       bitcoin.style.display = 'none';
   }
 });
+
+
+const nameValidator = ()=>{
+  const nameValue = nameElement.value;
+  const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+  return nameIsValid;
+}
+
+
+const emailValidator = ()=>{
+  const emailValue = email.value;
+  const emailsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+  return emailsValid;
+};
+
+const activitiesValidator = ()=>{
+  const activitiesIsValid = sum > 0;
+  return activitiesIsValid;
+}
+
+const creditCardValidator = ()=>{
+  const cardNumValue = creditCardNum.value;
+  const zipCodeValue = zipCode.value;
+  const cvvValue = cvv.value;
+  if(paymentMethods.value === 'credit-card'){
+    const cardNumValid = /^\d{13,16}$/.test(cardNumValue);
+    return cardNumValid;
+  }
+  if(paymentMethods.value === 'credit-card'){
+    const zipCodeValid = /^\d{5}$/.test(zipCodeValue);
+    return zipCodeValid;
+  }
+  if(paymentMethods.value === 'credit-card'){
+    const cvvValid =  /^\d{3}$/.test(cvvValue);
+    return cvvValid;
+  }
+}
+
+
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  nameValidator();
+  emailValidator();
+  activitiesValidator();
+  creditCardValidator();
+  console.log('Submit handler is functional!');
+})
