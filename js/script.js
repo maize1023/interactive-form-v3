@@ -5,8 +5,8 @@ nameInput.focus();
 const nameElement = document.getElementById('name');
 const form = document.querySelector('form');
 const email = document.getElementById('email');
-const otherJobRole = document.getElementById('other-job-role');
 const jobOptions = document.getElementById('title');
+const otherJobRole = document.getElementById('other-job-role');
 
 // T-Shirt Info
 const designs = document.getElementById('design');
@@ -29,6 +29,8 @@ const cvv = document.getElementById('cvv');
 
 
 
+
+
 // show/hide other job role
 jobOptions.addEventListener('change', ()=>{
   if(jobOptions.value === 'other'){
@@ -38,6 +40,7 @@ jobOptions.addEventListener('change', ()=>{
   }
 });
 
+// show/hide colors
 designs.addEventListener('change', (e)=>{
   const selectedTee = e.target.value;
   colors.disabled = false;
@@ -51,6 +54,7 @@ designs.addEventListener('change', (e)=>{
   }
 });
 
+// calculate total cost
 activities.addEventListener('change', (e)=>{
   const checkedActivity = e.target;
   const isChecked = checkedActivity.checked;
@@ -64,6 +68,7 @@ activities.addEventListener('change', (e)=>{
   totalCost.innerHTML = `Total: $${sum}`;
 });
 
+// show/hide payment types
 paymentMethods.addEventListener('change', ()=>{
   switch(paymentMethods.value){
     case 'credit-card':
@@ -88,6 +93,7 @@ paymentMethods.addEventListener('change', ()=>{
   }
 });
 
+// add/remove focus
 checkboxes.forEach((checkbox) => {
   checkbox.addEventListener('focus', () => {
     checkbox.parentNode.classList.add('focus');
@@ -105,6 +111,7 @@ checkboxes.forEach((checkbox) => {
 
 
 
+// nameValidator
 const nameValidator = ()=>{
   const nameValue = nameElement.value;
   const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
@@ -116,12 +123,12 @@ const nameValidator = ()=>{
   }else{
     nameLabel.classList.remove('not-valid');
     nameLabel.classList.add('valid');
-    nameLabel.classList.hide('.hint');
     nameLabel.lastElementChild.style.display = 'none';
   }
   return nameIsValid;
 }
 
+// emailValidator
 const emailValidator = ()=>{
   const emailValue = email.value;
   const emailsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
@@ -133,12 +140,12 @@ const emailValidator = ()=>{
   }else{
     emailLabel.classList.remove('not-valid');
     emailLabel.classList.add('valid');
-    emailLabel.classList.hide('.hint');
     emailLabel.lastElementChild.style.display = 'none';
   }
   return emailsValid;
 };
 
+// activitiesValidator
 const activitiesValidator = ()=>{
   const activitiesIsValid = sum > 0;
   if(!activitiesIsValid){
@@ -148,12 +155,12 @@ const activitiesValidator = ()=>{
   }else{
     activities.classList.remove('not-valid');
     activities.classList.add('valid');
-    activities.classList.hide('.hint');
     activities.lastElementChild.style.display = 'none';
   }
   return activitiesIsValid;
 }
 
+// creditCardValidator
 const creditCardValidator = ()=>{
   const cardNumValue = creditCardNum.value;
   const zipCodeValue = zipCode.value;
@@ -175,10 +182,8 @@ const creditCardValidator = ()=>{
     } else {
       creditLabel.classList.remove('not-valid');
       creditLabel.classList.add('valid');
-      creditLabel.classList.hide('.hint');
       creditLabel.lastElementChild.style.display = 'none';
     }
-
     if (!zipCodeValid) {
       zipLabel.classList.add('not-valid');
       zipLabel.classList.remove('valid');
@@ -189,7 +194,6 @@ const creditCardValidator = ()=>{
        zipLabel.classList.add('valid');
        zipLabel.lastElementChild.style.display = 'none';
     }
-
     if (!cvvValid) {
       cvvLabel.classList.add('not-valid');
       cvvLabel.classList.remove('valid');
@@ -201,17 +205,18 @@ const creditCardValidator = ()=>{
       cvvLabel.lastElementChild.style.display = 'none';
     }
   }
-
   return isValid;
 };
 
 
 
 form.addEventListener('submit', (e)=>{
-  e.preventDefault();
   nameValidator();
   emailValidator();
   activitiesValidator();
   creditCardValidator();
-  console.log('Submit handler is functional!');
+  if(nameValidator() && emailValidator() & activitiesValidator() & creditCardValidator()){
+    console.log('Submit handler is functional!');
+  }else
+   e.preventDefault();
 })
