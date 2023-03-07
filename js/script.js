@@ -54,6 +54,10 @@ designs.addEventListener('change', (e)=>{
   }
 });
 
+colors.addEventListener('change', ()=>{
+  designs.disabled = true;
+});
+
 // calculate total cost
 activities.addEventListener('change', (e)=>{
   const checkedActivity = e.target;
