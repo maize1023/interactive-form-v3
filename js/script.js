@@ -11,7 +11,7 @@ const otherJobRole = document.getElementById('other-job-role');
 // T-Shirt Info
 const designs = document.getElementById('design');
 const colors = document.getElementById('color');
-colors.disabled = true;
+// colors.disabled = true;
 
 // Register for Activities
 const activities = document.getElementById('activities');
@@ -46,6 +46,7 @@ designs.addEventListener('change', (e)=>{
   colors.disabled = false;
   for(let i = 0; i < colors.length; i++){
     const color = colors[i].getAttribute('data-theme');
+
     if(color === selectedTee){
       colors[i].style.display = 'block';
     }else{
@@ -55,7 +56,6 @@ designs.addEventListener('change', (e)=>{
 });
 
 colors.addEventListener('change', ()=>{
-  designs.disabled = true;
 });
 
 // calculate total cost
