@@ -11,7 +11,7 @@ const otherJobRole = document.getElementById('other-job-role');
 // T-Shirt Info
 const designs = document.getElementById('design');
 const colors = document.getElementById('color');
-// colors.disabled = true;
+colors.disabled = true;
 
 // Register for Activities
 const activities = document.getElementById('activities');
