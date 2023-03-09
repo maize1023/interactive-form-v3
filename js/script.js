@@ -44,6 +44,7 @@ jobOptions.addEventListener('change', ()=>{
 designs.addEventListener('change', (e)=>{
   const selectedTee = e.target.value;
   colors.disabled = false;
+
   for(let i = 0; i < colors.length; i++){
     const color = colors[i].getAttribute('data-theme');
 
@@ -53,6 +54,7 @@ designs.addEventListener('change', (e)=>{
       colors[i].style.display = 'none';
     }
   }
+  colors.selectedIndex = 0;
 });
 
 colors.addEventListener('change', ()=>{
